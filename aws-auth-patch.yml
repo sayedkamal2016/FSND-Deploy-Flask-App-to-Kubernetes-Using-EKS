@@ -1,27 +1,22 @@
-$ vi aws-auth.yaml
-
-
-
 apiVersion: v1
-
-kind: ConfigMap
-
-metadata:
-
-  name: aws-auth
-
-  namespace: kube-system
 data:
   mapRoles: |
-   - rolearn: arn:aws:iam::665522198142:role/eksctl-simple-jwt-api-nodegroup-NodeInstanceRole-LCYO9D4751B9
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::665522198142:role/eksctl-simple-jwt-api-nodegroup-NodeInstanceRole-LCYO9D4751B9
       username: system:node:{{EC2PrivateDNSName}}
-      groups:
-        - system:masters
-        - system:nodes
-   - rolearn: arn:aws:iam::665522198142:role/UdacityFlaskDeployCBKubectlRole
-     username: build
-     groups:
-       - system:masters
-
-
-$ kubectl apply -f aws-auth.yaml
+    - groups:
+      - system:masters
+      rolearn: arn:aws:iam::665522198142:role/UdacityFlaskDeployCBKubectlRole
+      username: build
+  mapUsers: |
+    []
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2020-06-07T05:34:50Z"
+  name: aws-auth
+  namespace: kube-system
+  resourceVersion: "6749"
+  selfLink: /api/v1/namespaces/kube-system/configmaps/aws-auth
+  uid: 48259437-4300-4a50-b6bd-0b3108c7872d

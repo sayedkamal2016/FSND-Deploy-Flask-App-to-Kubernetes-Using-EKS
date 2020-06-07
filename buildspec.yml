@@ -28,7 +28,7 @@ phases:
         - export KUBECONFIG=$HOME/.kube/config
         - pip3 install --upgrade pip
         - pip3 install -r requirements.txt
-        - pytest test_main.py
+        - pytest main.py
 
   build:
     commands:
